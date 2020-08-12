@@ -13,10 +13,10 @@ resource aws_default_security_group default {
 }
 
 resource aws_security_group ssh_ingress {
-  name = "${local.base_name}-ssh"
+  name   = "${local.base_name}-ssh"
   vpc_id = aws_vpc.default.id
 
-  tags   = local.tags
+  tags = local.tags
 
   ingress {
     from_port        = 22
@@ -28,10 +28,10 @@ resource aws_security_group ssh_ingress {
 }
 
 resource aws_security_group https_ingress {
-  name = "${local.base_name}-https"
+  name   = "${local.base_name}-https"
   vpc_id = aws_vpc.default.id
 
-  tags   = local.tags
+  tags = local.tags
 
   ingress {
     from_port        = 80

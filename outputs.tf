@@ -9,9 +9,9 @@ output vpc {
 
 output network_info {
   value = {
-    vpc_id            = aws_vpc.default.id
-    subnet_ids = aws_subnet.public[*].id
-    cidr_blocks = [ aws_vpc.default.cidr_block ]
+    vpc_id      = aws_vpc.default.id
+    subnet_ids  = aws_subnet.public[*].id
+    cidr_blocks = [aws_vpc.default.cidr_block]
   }
 }
 

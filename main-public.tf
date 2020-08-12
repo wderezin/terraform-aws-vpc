@@ -8,7 +8,7 @@ resource aws_subnet public {
 
   ipv6_cidr_block = cidrsubnet(aws_vpc.default.ipv6_cidr_block, 8, count.index)
   tags = merge(local.tags, {
-    Name    : local.subnet_name
+    Name : local.subnet_name
     network : "public",
     default : count.index == 0 ? "yes" : "no"
   })
@@ -16,7 +16,7 @@ resource aws_subnet public {
 
 resource aws_route_table public {
   vpc_id = aws_vpc.default.id
-  tags = merge(local.tags, {Name : local.subnet_name})
+  tags   = merge(local.tags, { Name : local.subnet_name })
 }
 
 resource aws_route_table_association public {
