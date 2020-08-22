@@ -7,10 +7,9 @@ data aws_availability_zones default {
 locals {
   enable_ssh_proxy_count = var.enable_ssh_proxy ? 1 : 0
 
-  //  Make sure these are set
-  cluster = var.cluster
+  name = var.name
 
-  base_tags = merge(
+  tags = merge(
     //    Default Tag Values
     {
       managed-by : "terraform"
@@ -19,19 +18,14 @@ locals {
     var.tags,
     //    Fixed tags for module
     {
-      Application : "daringway/vpc",
-      Cluster     : local.cluster,
-      Function    : "network"
+      Name        : local.name,
     }
   )
 
-  base_name   = local.cluster
-  subnet_name = "${local.base_name}-public"
+  subnet_name = "${local.name}-public"
 
-  tags = merge(local.base_tags, { Name : local.base_name })
-
-  ssh_name = "${local.base_name}-sshproxy"
-  ssh_tags = merge(local.tags, { Name : "${local.base_name}-sshproxy", Function : "sshproxy" })
+  ssh_name = "${local.name}-sshproxy"
+  ssh_tags = merge(local.tags, { Name : "${local.name}-sshproxy", Function : "sshproxy" })
 
   vpc_cidr = "172.31.0.0/16"
 

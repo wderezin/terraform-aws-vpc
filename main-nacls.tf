@@ -1,13 +1,13 @@
 
 resource aws_default_network_acl default {
   default_network_acl_id = aws_vpc.default.default_network_acl_id
-  tags                   = merge(local.tags, { Name : "${local.base_name}-default" })
+  tags                   = merge(local.tags, { Name : "${local.name}-default" })
 }
 
 resource aws_network_acl public {
   vpc_id     = aws_vpc.default.id
   subnet_ids = aws_subnet.public[*].id
-  tags       = merge(local.tags, { Name : "${local.base_name}-public" })
+  tags       = merge(local.tags, { Name : "${local.name}-public" })
 
   ingress {
     rule_no    = 100

@@ -4,6 +4,6 @@ variable tags {
   default = {}
 }
 
-variable cluster {
+variable name {
   type = string
 }

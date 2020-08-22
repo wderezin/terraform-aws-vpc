@@ -1,7 +1,7 @@
 
 resource aws_default_security_group default {
   vpc_id = aws_vpc.default.id
-  tags   = merge(local.tags, { Name : "${local.base_name}-default" })
+  tags   = merge(local.tags, { Name : "${local.name}-default" })
 
   egress {
     from_port        = 0
@@ -13,7 +13,7 @@ resource aws_default_security_group default {
 }
 
 resource aws_security_group ssh_ingress {
-  name   = "${local.base_name}-ssh"
+  name   = "${local.name}-ssh"
   vpc_id = aws_vpc.default.id
 
   tags = local.tags
@@ -28,7 +28,7 @@ resource aws_security_group ssh_ingress {
 }
 
 resource aws_security_group https_ingress {
-  name   = "${local.base_name}-https"
+  name   = "${local.name}-https"
   vpc_id = aws_vpc.default.id
 
   tags = local.tags

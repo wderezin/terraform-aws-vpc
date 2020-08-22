@@ -14,7 +14,3 @@ output network_info {
     cidr_blocks = [aws_vpc.default.cidr_block]
   }
 }
-
-output tags {
-  value = local.base_tags
-}
