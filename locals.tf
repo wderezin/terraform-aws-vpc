@@ -8,8 +8,7 @@ locals {
   enable_ssh_proxy_count = var.enable_ssh_proxy ? 1 : 0
 
   //  Make sure these are set
-  cluster = lookup(var.tags, "Cluster", "default")
-  project = lookup(var.tags, "Project", "default")
+  cluster = var.cluster
 
   base_tags = merge(
     //    Default Tag Values
@@ -21,7 +20,8 @@ locals {
     //    Fixed tags for module
     {
       Application : "daringway/vpc",
-      Function : "network"
+      Cluster     : local.cluster,
+      Function    : "network"
     }
   )
 
