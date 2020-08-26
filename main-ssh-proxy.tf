@@ -18,12 +18,30 @@ data aws_ami ami {
   }
 }
 
+resource tls_private_key key_pair_key {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+resource aws_key_pair key_pair {
+  key_name   = local.ssh_name
+  public_key = tls_private_key.key_pair_key.public_key_openssh
+  tags = local.tags
+}
+
+resource local_file key_pair {
+  filename = "${path.cwd}/${local.ssh_name}.pem"
+  sensitive_content = tls_private_key.key_pair_key.private_key_pem
+  file_permission = "0600"
+}
+
 resource aws_launch_template ssh_template {
   count = local.enable_ssh_proxy_count
 
   name          = local.ssh_name
   image_id      = data.aws_ami.ami.id
   instance_type = "t1.micro"
+  key_name = aws_key_pair.key_pair.key_name
 
   vpc_security_group_ids = [aws_default_security_group.default.id, aws_security_group.ssh_ingress.id]
 
