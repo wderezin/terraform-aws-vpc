@@ -19,7 +19,3 @@ output network_info {
     ]
   }
 }
-
-output tags {
-  value = local.base_tags
-}

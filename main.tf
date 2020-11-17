@@ -16,5 +16,5 @@ resource aws_egress_only_internet_gateway default {
 
 resource aws_default_route_table default {
   default_route_table_id = aws_vpc.default.default_route_table_id
-  tags                   = merge(local.tags, { Name : "${local.base_name}-default" })
+  tags                   = merge(local.tags, { Name : "${local.name}-default" })
 }
