@@ -48,7 +48,7 @@ resource aws_launch_template ssh_template {
   tags = local.ssh_tags
   tag_specifications {
     resource_type = "instance"
-    tags          = merge(local.ssh_tags, map("SSHUSER", "ec2-user"))
+    tags          = merge(local.ssh_tags, {"SSHUSER": "ec2-user"})
   }
 }
 
