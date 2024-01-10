@@ -49,3 +49,22 @@ resource aws_security_group https_ingress {
     ipv6_cidr_blocks = ["::/0"]
   }
 }
+
+data "aws_ec2_managed_prefix_list" "cloudfront" {
+  name   = "com.amazonaws.global.cloudfront.origin-facing"
+}
+
+resource aws_security_group cloudfront_https_ingress {
+  name   = "${local.name}-cloudfront-https"
+  vpc_id = aws_vpc.default.id
+
+  tags = local.tags
+
+  ingress {
+    from_port        = 443
+    protocol         = "tcp"
+    to_port          = 443
+    prefix_list_ids = [ data.aws_ec2_managed_prefix_list.cloudfront.id ]
+
+  }
+}
